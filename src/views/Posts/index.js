@@ -6,7 +6,7 @@ const Posts = () => {
   return (
     <div>
       <NavBar title="Posts" />
-      Post
+      <div style={{ marginTop: "70px" }}>Posts</div>
     </div>
   );
 };
