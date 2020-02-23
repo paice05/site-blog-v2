@@ -35,9 +35,14 @@ function* login({ payload }) {
   }
 }
 
+function* logout() {
+  yield put({ type: typesAuth.AUTH_LOGOUT_SUCCESS });
+}
+
 function* watcherAuth() {
   yield takeLatest(typesAuth.AUTH_TOKEN, auth);
   yield takeLatest(typesAuth.AUTH_LOGIN, login);
+  yield takeLatest(typesAuth.AUTH_LOGOUT, logout);
 }
 
 export default watcherAuth;

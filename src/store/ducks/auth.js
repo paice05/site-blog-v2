@@ -11,12 +11,16 @@ export const typesAuth = {
   AUTH_LOGIN: '@auth/AUTH_LOGIN',
   AUTH_LOGIN_SUCCESS: '@auth/AUTH_LOGIN_SUCCESS',
   AUTH_LOGIN_ERROR: '@auth/AUTH_LOGIN_ERROR',
+
+  AUTH_LOGOUT: '@auth/AUTH_LOGOUT',
+  AUTH_LOGOUT_SUCCESS: '@auth/AUTH_LOGOUT_SUCCESS',
+  AUTH_LOGOUT_ERROR: '@auth/AUTH_LOGOUT_ERROR',
 };
 
 export const actionsAuth = {
   auth: (username, password) => ({ type: typesAuth.AUTH_TOKEN, payload: { username, password } }),
-
   login: (token) => ({ type: typesAuth.AUTH_LOGIN, payload: { token } }),
+  logout: () => ({ type: typesAuth.AUTH_LOGOUT }),
 };
 
 export const reducersAuth = (state = initialState, action) => {
@@ -27,6 +31,8 @@ export const reducersAuth = (state = initialState, action) => {
         token: action.payload.token,
         user: action.payload.user,
       };
+    case typesAuth.AUTH_LOGOUT_SUCCESS:
+      return initialState;
     default:
       return state;
   }

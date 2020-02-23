@@ -1,49 +1,53 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
+
+import PropTypes from 'prop-types';
+
+import { useSelector } from 'react-redux'
 
 // core
-import { makeStyles } from "@material-ui/core/styles";
-import Drawer from "@material-ui/core/Drawer";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
-import IconButton from "@material-ui/core/IconButton";
+import { makeStyles } from '@material-ui/core/styles';
+import Drawer from '@material-ui/core/Drawer';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
 
 // icons
-import { Menu } from "@material-ui/icons";
+import { Menu } from '@material-ui/icons';
 
 // components
-import SideList from "./SideList";
-import UserActions from "./UserActions";
-import Login from "./Login";
+import SideList from './SideList';
+import UserActions from './UserActions';
+import Login from './Login';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2)
+    marginRight: theme.spacing(2),
   },
   title: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   list: {
-    width: 250
-  }
+    width: 250,
+  },
 }));
 
 const NavBar = ({ title }) => {
   const classes = useStyles();
 
-  const [logged, setLogged] = useState(false);
+  const { token } = useSelector((state) => state.auth);
 
   const [state, setState] = useState({
-    left: false
+    left: false,
   });
 
-  const toggleDrawer = (side, open) => event => {
+  const toggleDrawer = (side, open) => (event) => {
     if (
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
+      event.type === 'keydown'
+      && (event.key === 'Tab' || event.key === 'Shift')
     ) {
       return;
     }
@@ -59,24 +63,28 @@ const NavBar = ({ title }) => {
           color="inherit"
           className={classes.menuButton}
           aria-label="menu"
-          onClick={toggleDrawer("left", true)}
+          onClick={toggleDrawer('left', true)}
         >
           <Menu />
         </IconButton>
         <Typography variant="h6" className={classes.title}>
           {title}
         </Typography>
-        {logged ? (
-          <UserActions logout={() => setLogged(!logged)} />
+        {token ? (
+          <UserActions />
         ) : (
-          <Login login={() => setLogged(!logged)} />
+          <Login />
         )}
       </Toolbar>
-      <Drawer open={state.left} onClose={toggleDrawer("left", false)}>
+      <Drawer open={state.left} onClose={toggleDrawer('left', false)}>
         <SideList side="left" toggleDrawer={toggleDrawer} classes={classes} />
       </Drawer>
     </AppBar>
   );
+};
+
+NavBar.propTypes = {
+  title: PropTypes.string.isRequired,
 };
 
 export default NavBar;

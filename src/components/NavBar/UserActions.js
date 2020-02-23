@@ -1,27 +1,37 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState } from 'react';
+
+// import PropTypes from 'prop-types';
+
+import { useSelector, useDispatch } from 'react-redux';
 
 // core
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import Grow from "@material-ui/core/Grow";
-import Paper from "@material-ui/core/Paper";
-import Popper from "@material-ui/core/Popper";
-import MenuItem from "@material-ui/core/MenuItem";
-import MenuList from "@material-ui/core/MenuList";
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import Grow from '@material-ui/core/Grow';
+import Paper from '@material-ui/core/Paper';
+import Popper from '@material-ui/core/Popper';
+import MenuItem from '@material-ui/core/MenuItem';
+import MenuList from '@material-ui/core/MenuList';
 
 // icons
-import { AccountCircle } from "@material-ui/icons";
+import { AccountCircle } from '@material-ui/icons';
 
-const UserActions = ({ logout }) => {
+import { actionsAuth } from '../../store/ducks/auth';
+
+const UserActions = () => {
+  const dispatch = useDispatch();
+
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
 
+  const { user, token } = useSelector((state) => state.auth);
+
   const handleToggle = () => {
-    setOpen(prevOpen => !prevOpen);
+    setOpen((prevOpen) => !prevOpen);
   };
 
-  const handleClose = event => {
+  const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;
     }
@@ -30,7 +40,7 @@ const UserActions = ({ logout }) => {
   };
 
   function handleListKeyDown(event) {
-    if (event.key === "Tab") {
+    if (event.key === 'Tab') {
       event.preventDefault();
       setOpen(false);
     }
@@ -39,14 +49,14 @@ const UserActions = ({ logout }) => {
     <>
       <Button
         ref={anchorRef}
-        aria-controls={open ? "menu-list-grow" : undefined}
+        aria-controls={open ? 'menu-list-grow' : undefined}
         aria-haspopup="true"
         onClick={handleToggle}
         style={{
-          color: "white"
+          color: 'white',
         }}
       >
-        <Typography variant="inherit" style={{ marginRight: '15px' }}>Matheus Paice</Typography>
+        <Typography variant="inherit" style={{ marginRight: '15px' }}>{token && user.name}</Typography>
         <AccountCircle />
       </Button>
 
@@ -62,7 +72,7 @@ const UserActions = ({ logout }) => {
             {...TransitionProps}
             style={{
               transformOrigin:
-                placement === "bottom" ? "center top" : "center bottom"
+                placement === 'bottom' ? 'center top' : 'center bottom',
             }}
           >
             <Paper>
@@ -74,9 +84,9 @@ const UserActions = ({ logout }) => {
                 >
                   <MenuItem onClick={handleClose}>Perfil</MenuItem>
                   <MenuItem
-                    onClick={event => {
+                    onClick={(event) => {
                       handleClose(event);
-                      logout();
+                      dispatch(actionsAuth.logout());
                     }}
                   >
                     Logout
@@ -90,5 +100,7 @@ const UserActions = ({ logout }) => {
     </>
   );
 };
+
+UserActions.propTypes = {};
 
 export default UserActions;
