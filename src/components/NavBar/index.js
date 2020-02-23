@@ -6,7 +6,6 @@ import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 
 // icons
@@ -15,6 +14,7 @@ import { Menu } from "@material-ui/icons";
 // components
 import SideList from "./SideList";
 import UserActions from "./UserActions";
+import Login from "./Login";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -69,9 +69,7 @@ const NavBar = ({ title }) => {
         {logged ? (
           <UserActions logout={() => setLogged(!logged)} />
         ) : (
-          <Button color="inherit" onClick={() => setLogged(!logged)}>
-            Login
-          </Button>
+          <Login login={() => setLogged(!logged)} />
         )}
       </Toolbar>
       <Drawer open={state.left} onClose={toggleDrawer("left", false)}>
