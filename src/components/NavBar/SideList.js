@@ -36,7 +36,7 @@ const SideList = ({ classes, side, toggleDrawer }) => {
       <Divider />
       <List>
         {[
-          { text: "HomePage", icon: Home, path: '/' },
+          { text: "Home", icon: Home, path: '/' },
           { text: "Posts", icon: ImportContacts, path: '/posts' },
           { text: "Autores", icon: RecentActors, path: '/' }
         ].map(({ text, icon: Icon, path }, index) => (
