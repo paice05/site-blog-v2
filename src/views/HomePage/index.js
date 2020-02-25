@@ -1,77 +1,96 @@
-import React from "react";
+import React from 'react';
 
 // core
-import { makeStyles } from "@material-ui/core/styles";
-import GridList from "@material-ui/core/GridList";
-import GridListTile from "@material-ui/core/GridListTile";
-import GridListTileBar from "@material-ui/core/GridListTileBar";
-import IconButton from "@material-ui/core/IconButton";
-import StarBorderIcon from "@material-ui/icons/StarBorder";
-// import InfoIcon from '@material-ui/icons/Info';
+import { makeStyles } from '@material-ui/core/styles';
+import { red } from '@material-ui/core/colors';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import Typography from '@material-ui/core/Typography';
+import Container from '@material-ui/core/Container';
 
-// components
-import NavBar from "../../components/NavBar";
+// icons
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import ShareIcon from '@material-ui/icons/Share';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 
-// data
-import tileData from "./tileData";
+// assets
+import Sapphire from '../../assets/img/sapphire-1.jpg';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
-    marginTop: '70px',
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "space-around",
-    overflow: "hidden",
-    backgroundColor: theme.palette.background.paper
+    maxWidth: 345,
   },
-  gridList: {
-    width: 717,
-    // height: 450,
-    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
-    transform: "translateZ(0)"
+  media: {
+    height: 0,
+    paddingTop: '56.25%', // 16:9
   },
-  titleBar: {
-    background:
-      "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, " +
-      "rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)"
+  avatar: {
+    backgroundColor: red[500],
   },
-  icon: {
-    color: "white"
-  }
 }));
 
 const HomePage = () => {
   const classes = useStyles();
 
   return (
-    <div>
-      <NavBar title="Home" />
-      <div className={classes.root}>
-        <GridList cellHeight={200} spacing={4} className={classes.gridList}>
-          {tileData.map(tile => (
-            <GridListTile
-              key={tile.id}
-              cols={tile.featured ? 2 : 1}
-              rows={tile.featured ? 2 : 1}
-            >
-              <img src={tile.img} alt={tile.title} />
-              <GridListTileBar
-                title={tile.title}
-                subtitle={<span>by: {tile.author}</span>}
-                // titlePosition="top"
-                actionIcon={
-                  <IconButton aria-label={`info about ${tile.title}`} className={classes.icon}>
-                  <StarBorderIcon />
-                </IconButton>
-                }
-                actionPosition="left"
-                className={classes.titleBar}
-              />
-            </GridListTile>
-          ))}
-        </GridList>
+    (
+      <div>
+        <Container maxWidth="sm" style={{ textAlign: 'center' }}>
+          <h1> sαρρЋirє </h1>
+          <img
+            src={Sapphire}
+            width="100%"
+            alt=""
+            style={{
+              height: '200px',
+              width: '100%',
+              maxWidth: '400px',
+              marginTop: '20px',
+            }}
+          />
+        </Container>
+        {/* <Card className={classes.root}>
+          <CardHeader
+            avatar={(
+              <Avatar aria-label="recipe" className={classes.avatar}>
+                R
+              </Avatar>
+            )}
+            action={(
+              <IconButton aria-label="settings">
+                <MoreVertIcon />
+              </IconButton>
+            )}
+            title="Shrimp and Chorizo Paella"
+            subheader="September 14, 2016"
+          />
+          <CardMedia
+            className={classes.media}
+            image="/static/images/cards/paella.jpg"
+            title="Paella dish"
+          />
+          <CardContent>
+            <Typography variant="body2" color="textSecondary" component="p">
+              This impressive paella is a perfect party dish and a fun meal to cook together with your
+              guests. Add 1 cup of frozen peas along with the mussels, if you like.
+            </Typography>
+          </CardContent>
+          <CardActions disableSpacing>
+            <IconButton aria-label="add to favorites">
+              <FavoriteIcon />
+            </IconButton>
+            <IconButton aria-label="share">
+              <ShareIcon />
+            </IconButton>
+          </CardActions>
+        </Card> */}
       </div>
-    </div>
+    )
   );
 };
 

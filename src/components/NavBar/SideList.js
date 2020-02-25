@@ -1,13 +1,13 @@
-import React from "react";
+import React from 'react';
 
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 
 // core
-import List from "@material-ui/core/List";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
+import List from '@material-ui/core/List';
+import Divider from '@material-ui/core/Divider';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 
 // icons
 import {
@@ -15,8 +15,8 @@ import {
   RecentActors,
   Category,
   Schedule,
-  ImportContacts
-} from "@material-ui/icons";
+  ImportContacts,
+} from '@material-ui/icons';
 
 const SideList = ({ classes, side, toggleDrawer }) => {
   const history = useHistory();
@@ -30,16 +30,16 @@ const SideList = ({ classes, side, toggleDrawer }) => {
     >
       <List>
         <ListItem>
-          <ListItemText primary="Remake Blog" />
+          <ListItemText primary="Sapphire" />
         </ListItem>
       </List>
       <Divider />
       <List>
         {[
-          { text: "Home", icon: Home, path: '/' },
-          { text: "Posts", icon: ImportContacts, path: '/posts' },
-          { text: "Autores", icon: RecentActors, path: '/' }
-        ].map(({ text, icon: Icon, path }, index) => (
+          { text: 'Home', icon: Home, path: '/' },
+          { text: 'Posts', icon: ImportContacts, path: '/posts' },
+          { text: 'Authors', icon: RecentActors, path: '/authors' },
+        ].map(({ text, icon: Icon, path }) => (
           <ListItem button key={text} onClick={() => history.push(path)}>
             <ListItemIcon>
               <Icon />
@@ -51,8 +51,8 @@ const SideList = ({ classes, side, toggleDrawer }) => {
       <Divider />
       <List>
         {[
-          { text: "Recentes", icon: Schedule },
-          { text: "Categorias", icon: Category }
+          { text: 'Recentes', icon: Schedule },
+          { text: 'Categorias', icon: Category },
         ].map(({ text, icon: Icon }, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
