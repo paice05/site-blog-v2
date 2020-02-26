@@ -1,3 +1,5 @@
+import { typesMe, actionsMe } from './me';
+
 const initialState = {
   token: '',
   user: {},
@@ -46,6 +48,11 @@ export const reducersAuth = (state = initialState, action) => {
           type: typesAuth.AUTH_TOKEN_ERROR,
           message: action.payload,
         },
+      };
+    case typesMe.ME_UPDATE_SUCCESS:
+      return {
+        ...state,
+        user: action.payload,
       };
     case typesAuth.AUTH_LOGOUT_SUCCESS:
       return initialState;
