@@ -11,7 +11,6 @@ const Input = ({ label, type, input }) => {
     <div>
       <TextField
         fullWidth
-        id="standard-basic"
         label={label}
         type={type}
         value={value}

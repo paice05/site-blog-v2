@@ -1,9 +1,10 @@
 import React from 'react';
 
+import { PersistGate } from 'redux-persist/integration/react';
 import { Provider } from 'react-redux';
 
 // store
-import store from './store';
+import redux from './store';
 
 // routes
 import Routes from './routes';
@@ -11,8 +12,10 @@ import Routes from './routes';
 function App() {
   return (
     <div className="App">
-      <Provider store={store}>
-        <Routes />
+      <Provider store={redux.store}>
+        <PersistGate loading={null} persistor={redux.persistor}>
+          <Routes />
+        </PersistGate>
       </Provider>
     </div>
   );

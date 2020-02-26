@@ -21,7 +21,7 @@ const Authors = () => {
 
   useEffect(() => {
     dispacth(actionsAuthors.listAuthors());
-  }, []);
+  }, [dispacth]);
 
   return (
     <List>
