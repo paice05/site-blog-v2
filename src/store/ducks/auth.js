@@ -1,6 +1,10 @@
 const initialState = {
   token: '',
   user: {},
+  status: {
+    type: '',
+    message: '',
+  },
 };
 
 export const typesAuth = {
@@ -30,6 +34,18 @@ export const reducersAuth = (state = initialState, action) => {
         ...state,
         token: action.payload.token,
         user: action.payload.user,
+        status: {
+          type: typesAuth.AUTH_TOKEN_SUCCESS,
+          message: '',
+        },
+      };
+    case typesAuth.AUTH_TOKEN_ERROR:
+      return {
+        ...state,
+        status: {
+          type: typesAuth.AUTH_TOKEN_ERROR,
+          message: action.payload,
+        },
       };
     case typesAuth.AUTH_LOGOUT_SUCCESS:
       return initialState;

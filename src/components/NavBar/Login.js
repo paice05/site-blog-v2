@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { reduxForm, Form, Field } from 'redux-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 // core
 import Button from '@material-ui/core/Button';
@@ -14,13 +14,23 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 // ducks
-import { actionsAuth } from '../../store/ducks/auth';
+import { actionsAuth, typesAuth } from '../../store/ducks/auth';
 
 // component
 import Input from '../Input/Input';
 
+// style
+const styles = {
+  labelError: {
+    color: 'red',
+    fontSize: '12px',
+  },
+};
+
 const Login = ({ handleSubmit }) => {
   const dispatch = useDispatch();
+
+  const { type, message } = useSelector((state) => state.auth.status);
 
   const [open, setOpen] = useState(false);
 
@@ -50,22 +60,32 @@ const Login = ({ handleSubmit }) => {
           <DialogTitle id="form-dialog-title">Remake Blog - Login</DialogTitle>
           <DialogContent>
             <DialogContentText>
-            Bem vindo a plataforma de blog da Remake.
-            Acesso agora e fique por dentro de todas as novidades do
-            mundo da tecnologia com as notícias mais atuais do momento.
+              Bem vindo a plataforma de blog da Remake. Acesso agora e fique por
+              dentro de todas as novidades do mundo da tecnologia com as
+              notícias mais atuais do momento.
             </DialogContentText>
-            <Field name="username" component={Input} label="Username" type="text" />
-            <Field name="password" component={Input} label="Password" type="password" />
+            <Field
+              name="username"
+              component={Input}
+              label="Username"
+              type="text"
+            />
+            <Field
+              name="password"
+              component={Input}
+              label="Password"
+              type="password"
+            />
+            <p style={styles.labelError}>
+              {type === typesAuth.AUTH_TOKEN_ERROR && message}
+            </p>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">
-            Cancel
+              Cancel
             </Button>
-            <Button
-              type="submit"
-              color="primary"
-            >
-            Login
+            <Button type="submit" color="primary">
+              Login
             </Button>
           </DialogActions>
         </Form>

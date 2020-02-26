@@ -6,12 +6,19 @@ import { create, list } from '../../service/axios';
 
 function* auth({ payload: { username, password } }) {
   try {
-    const response = yield call(create, '/auth', { username, password });
+    const response = yield call(create, '/auth', {
+      username: username.toLowerCase(),
+      password: password.toLowerCase(),
+    });
 
     yield put({ type: typesAuth.AUTH_TOKEN_SUCCESS });
     yield put({ type: typesAuth.AUTH_LOGIN, payload: response.token });
   } catch (error) {
-    yield put({ type: typesAuth.AUTH_TOKEN_ERROR });
+    yield put({
+      type: typesAuth.AUTH_TOKEN_ERROR,
+      payload:
+        'Não foi possível acessar a plataforma, por favor verifique seus dados',
+    });
   }
 }
 
