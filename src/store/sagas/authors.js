@@ -1,4 +1,6 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
+import {
+  call, put, takeLatest, select,
+} from 'redux-saga/effects';
 
 import { list, create } from '../../service/axios';
 
@@ -6,8 +8,10 @@ import { typesAuthors } from '../ducks/authors';
 import { typesAuth } from '../ducks/auth';
 
 function* listAuthors() {
+  const meId = yield select((state) => state.auth.user.id);
   try {
-    const response = yield call(list, '/authors');
+    const data = yield call(list, '/authors');
+    const response = yield data.filter((author) => author.id !== meId);
     yield put({ type: typesAuthors.AUTHORS_LIST_SUCCESS, payload: response });
   } catch (error) {
     yield put({ type: typesAuthors.AUTHORS_LIST_ERROR });
