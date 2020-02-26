@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import PropTypes from 'prop-types';
 
-import { useSelector } from 'react-redux'
+import { useSelector } from 'react-redux';
 
 // core
 import { makeStyles } from '@material-ui/core/styles';
@@ -19,6 +19,7 @@ import { Menu } from '@material-ui/icons';
 import SideList from './SideList';
 import UserActions from './UserActions';
 import Login from './Login';
+import Register from './Register';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,7 +74,10 @@ const NavBar = ({ title }) => {
         {token ? (
           <UserActions />
         ) : (
-          <Login />
+          <>
+            <Register />
+            <Login />
+          </>
         )}
       </Toolbar>
       <Drawer open={state.left} onClose={toggleDrawer('left', false)}>

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { reduxForm, Form, Field } from 'redux-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 // core
 import Button from '@material-ui/core/Button';
@@ -14,40 +14,31 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 // ducks
-import { actionsAuth, typesAuth } from '../../store/ducks/auth';
+import { actionsAuthors } from '../../store/ducks/authors';
 
 // component
 import Input from '../Input/Input';
 
-// style
-const styles = {
-  labelError: {
-    color: 'red',
-    fontSize: '12px',
-  },
-};
-
-const Login = ({ handleSubmit }) => {
+const Register = ({ handleSubmit }) => {
   const dispatch = useDispatch();
-
-  const { type, message } = useSelector((state) => state.auth.status);
 
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => setOpen(true);
-
   const handleClose = () => setOpen(false);
 
-  const handleSave = ({ username, password }) => {
-    dispatch(actionsAuth.auth(username, password));
-
-    // handleClose();
+  const handleSave = ({
+    name, bio, username, password,
+  }) => {
+    dispatch(actionsAuthors.createAuthors({
+      name, bio, username, password,
+    }));
   };
 
   return (
     <>
-      <Button variant="outlined" color="inherit" onClick={handleClickOpen}>
-        Login
+      <Button color="inherit" onClick={handleClickOpen}>
+        Register
       </Button>
       <Dialog
         open={open}
@@ -57,13 +48,25 @@ const Login = ({ handleSubmit }) => {
         fullWidth
       >
         <Form onSubmit={handleSubmit((values) => handleSave(values))}>
-          <DialogTitle id="form-dialog-title">Remake Blog - Login</DialogTitle>
+          <DialogTitle id="form-dialog-title">Sapphire Blog - Login</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Bem vindo a plataforma de blog da Remake. Acesso agora e fique por
+              Bem vindo a plataforma de blog da Sapphire. Acesso agora e fique por
               dentro de todas as novidades do mundo da tecnologia com as
               notícias mais atuais do momento.
             </DialogContentText>
+            <Field
+              name="name"
+              component={Input}
+              label="Name"
+              type="text"
+            />
+            <Field
+              name="bio"
+              component={Input}
+              label="Bio"
+              type="text"
+            />
             <Field
               name="username"
               component={Input}
@@ -73,19 +76,16 @@ const Login = ({ handleSubmit }) => {
             <Field
               name="password"
               component={Input}
-              label="Password"
+              label="password"
               type="password"
             />
-            <p style={styles.labelError}>
-              {type === typesAuth.AUTH_TOKEN_ERROR && message}
-            </p>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose} color="primary">
               Cancel
             </Button>
             <Button type="submit" color="primary">
-              Login
+              Register
             </Button>
           </DialogActions>
         </Form>
@@ -94,11 +94,11 @@ const Login = ({ handleSubmit }) => {
   );
 };
 
-Login.propTypes = {
+Register.propTypes = {
   // func
   handleSubmit: PropTypes.func.isRequired,
 };
 
 export default reduxForm({
-  form: 'auth',
-})(Login);
+  form: 'register',
+})(Register);

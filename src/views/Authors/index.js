@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
+import { useDispatch, useSelector } from 'react-redux';
+
+// core
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Divider from '@material-ui/core/Divider';
@@ -8,71 +11,49 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 
-const Authors = () => (
-  <List >
-    <ListItem alignItems="flex-start">
-      <ListItemAvatar>
-        <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-      </ListItemAvatar>
-      <ListItemText
-        primary="Brunch this weekend?"
-        secondary={(
-          <>
-            <Typography
-              component="span"
-              variant="body2"
-              color="textPrimary"
-            >
-              Ali Connors
-            </Typography>
-            {" — I'll be in your neighborhood doing errands this…"}
-          </>
-        )}
-      />
-    </ListItem>
-    <Divider variant="inset" component="li" />
-    <ListItem alignItems="flex-start">
-      <ListItemAvatar>
-        <Avatar alt="Travis Howard" src="/static/images/avatar/2.jpg" />
-      </ListItemAvatar>
-      <ListItemText
-        primary="Summer BBQ"
-        secondary={(
-          <>
-            <Typography
-              component="span"
-              variant="body2"
-              color="textPrimary"
-            >
-              to Scott, Alex, Jennifer
-            </Typography>
-            {" — Wish I could come, but I'm out of town this…"}
-          </>
-        )}
-      />
-    </ListItem>
-    <Divider variant="inset" component="li" />
-    <ListItem alignItems="flex-start">
-      <ListItemAvatar>
-        <Avatar alt="Cindy Baker" src="/static/images/avatar/3.jpg" />
-      </ListItemAvatar>
-      <ListItemText
-        primary="Oui Oui"
-        secondary={(
-          <>
-            <Typography
-              component="span"
-              variant="body2"
-              color="textPrimary"
-            >
-              Sandra Adams
-            </Typography>
-            {' — Do you have Paris recommendations? Have you ever…'}
-          </>
-        )}
-      />
-    </ListItem>
-  </List>
-);
+// duck
+import { actionsAuthors } from '../../store/ducks/authors';
+
+const Authors = () => {
+  const dispacth = useDispatch();
+
+  const { byId, allId } = useSelector((state) => state.authors);
+
+  useEffect(() => {
+    dispacth(actionsAuthors.listAuthors());
+  }, []);
+
+  return (
+    <List>
+      {allId.map((author) => (
+        <div key={byId[author].id}>
+          <ListItem alignItems="flex-start">
+            <ListItemAvatar>
+              <Avatar
+                alt={byId[author].name}
+                src="/static/images/avatar/1.jpg"
+              />
+            </ListItemAvatar>
+            <ListItemText
+              primary={byId[author].name}
+              secondary={(
+                <>
+                  <Typography
+                    component="span"
+                    variant="body2"
+                    color="textPrimary"
+                  >
+                    {byId[author].bio}
+                  </Typography>
+                </>
+              )}
+            />
+          </ListItem>
+          <Divider variant="inset" component="li" />
+        </div>
+      ))}
+    </List>
+  );
+};
 
 export default Authors;
