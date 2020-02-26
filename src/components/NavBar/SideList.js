@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 // core
 import List from '@material-ui/core/List';
@@ -16,10 +17,14 @@ import {
   Category,
   Schedule,
   ImportContacts,
+  AccountCircle,
+  ControlPoint,
 } from '@material-ui/icons';
 
 const SideList = ({ classes, side, toggleDrawer }) => {
   const history = useHistory();
+
+  const { token, user } = useSelector((state) => state.auth);
 
   return (
     <div
@@ -34,6 +39,26 @@ const SideList = ({ classes, side, toggleDrawer }) => {
         </ListItem>
       </List>
       <Divider />
+      {
+        token && (
+          <>
+            <List>
+              {[
+                { text: user.name, icon: AccountCircle, path: '/profile' },
+                { text: 'New Post', icon: ControlPoint, path: '/posts' },
+              ].map(({ text, icon: Icon, path }) => (
+                <ListItem button key={text} onClick={() => history.push(path)}>
+                  <ListItemIcon>
+                    <Icon />
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              ))}
+            </List>
+            <Divider />
+          </>
+        )
+      }
       <List>
         {[
           { text: 'Home', icon: Home, path: '/' },

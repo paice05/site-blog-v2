@@ -3,6 +3,7 @@ import React, { useRef, useState } from 'react';
 // import PropTypes from 'prop-types';
 
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 // core
 import Typography from '@material-ui/core/Typography';
@@ -21,6 +22,7 @@ import { actionsAuth } from '../../store/ducks/auth';
 
 const UserActions = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
@@ -82,7 +84,13 @@ const UserActions = () => {
                   id="menu-list-grow"
                   onKeyDown={handleListKeyDown}
                 >
-                  <MenuItem onClick={handleClose}>Perfil</MenuItem>
+                  <MenuItem onClick={(event) => {
+                    handleClose(event);
+                    history.push('/profile');
+                  }}
+                  >
+                    Perfil
+                  </MenuItem>
                   <MenuItem
                     onClick={(event) => {
                       handleClose(event);

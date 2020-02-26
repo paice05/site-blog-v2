@@ -28,6 +28,9 @@ function* login({ payload }) {
       headers: {
         authorization: `Bearer ${payload}`,
       },
+      params: {
+        include: 'file',
+      },
     });
 
     yield put({

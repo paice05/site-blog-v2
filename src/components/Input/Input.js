@@ -5,16 +5,18 @@ import PropTypes from 'prop-types';
 // core
 import TextField from '@material-ui/core/TextField';
 
-const Input = ({ label, type, input }) => {
+const Input = ({
+  label, input, ...rest
+}) => {
   const { value, onChange } = input;
   return (
     <div>
       <TextField
         fullWidth
         label={label}
-        type={type}
         value={value}
         onChange={onChange}
+        {...rest}
       />
     </div>
   );
@@ -23,7 +25,6 @@ const Input = ({ label, type, input }) => {
 Input.propTypes = {
   // string
   label: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
   // object
   input: PropTypes.shape({
     value: PropTypes.string.isRequired,
