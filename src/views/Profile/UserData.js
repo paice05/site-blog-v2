@@ -53,14 +53,31 @@ const UserData = ({ handleSubmit, initialize }) => {
   return (
     <>
       <Grid container spacing={3}>
-        <Grid item xs={3}>
+        <Grid
+          style={{
+            padding: '0',
+            width: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+          item
+          sm={12}
+          md={3}
+          lg={3}
+        >
           <Avatar
             alt={user.name}
             src={user.file && user.file.url}
             className={classes.large}
           />
         </Grid>
-        <Grid item xs={9}>
+        <Grid
+          style={{ padding: '0', width: '100%' }}
+          item
+          sm={12}
+          md={9}
+          lg={9}
+        >
           <Form onSubmit={handleSubmit((values) => handleSave(values))}>
             {disabled ? (
               <Fab
