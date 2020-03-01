@@ -12,6 +12,7 @@ import Box from '@material-ui/core/Box';
 
 // components
 import UserData from './UserData';
+import PostData from './PostData';
 
 function TabPanel(props) {
   const {
@@ -68,7 +69,7 @@ const Profile = () => {
         <UserData />
       </TabPanel>
       <TabPanel value={value} index={1}>
-        Posts
+        <PostData />
       </TabPanel>
       <TabPanel value={value} index={2}>
         Item Three

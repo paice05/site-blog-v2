@@ -45,7 +45,7 @@ const SideList = ({ classes, side, toggleDrawer }) => {
             <List>
               {[
                 { text: user.name, icon: AccountCircle, path: '/profile' },
-                { text: 'New Post', icon: ControlPoint, path: '/posts' },
+                { text: 'New Post', icon: ControlPoint, path: '/newPosts' },
               ].map(({ text, icon: Icon, path }) => (
                 <ListItem button key={text} onClick={() => history.push(path)}>
                   <ListItemIcon>
