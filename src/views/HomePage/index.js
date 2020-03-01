@@ -8,7 +8,7 @@ import Sapphire from '../../assets/img/sapphire-1.jpg';
 
 const HomePage = () => (
   <Container maxWidth="sm" style={{ textAlign: 'center' }}>
-    <h1> sαρρЋirє </h1>
+    <h1> Lavinia, pare de ir na casa da Luana. </h1>
     <img
       src={Sapphire}
       width="100%"
