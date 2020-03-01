@@ -52,14 +52,9 @@ const Profile = () => {
   if (!token) history.push('/');
 
   return (
-    <div style={{
-      width: '90%',
-      maxWidth: '1000px',
-      margin: '15px auto 15px',
-    }}
-    >
+    <div>
       <AppBar position="static">
-        <Tabs value={value} onChange={handleChange} aria-label="simple tabs example">
+        <Tabs variant="fullWidth" value={value} onChange={handleChange} aria-label="simple tabs example">
           <Tab label="User" {...a11yProps(0)} />
           <Tab label="Posts" {...a11yProps(1)} />
           <Tab label="Item Three" {...a11yProps(2)} />
