@@ -33,9 +33,15 @@ function* listPost() {
   }
 }
 
+function* deletePost(action) {
+  const { payload } = action;
+  yield put({ type: typesPosts.POST_DELETE_SUCCESS, payload });
+}
+
 function* watcherPosts() {
   yield takeLatest(typesPosts.POST_ADD, addPost);
   yield takeLatest(typesPosts.POST_LIST, listPost);
+  yield takeLatest(typesPosts.POST_DELETE, deletePost);
 }
 
 export default watcherPosts;

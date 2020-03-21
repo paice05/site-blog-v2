@@ -23,45 +23,41 @@ const Authors = () => {
 
   const { byId, allId } = useSelector((state) => state.authors);
 
+  console.log(allId);
+
   useEffect(() => {
     dispacth(actionsAuthors.listAuthors());
-
-    setTimeout(() => {
-      setLoading(!loading);
-    }, 3000);
   }, [dispacth]);
 
   return (
     <List>
-      {loading
-        ? <Loading avatar text />
-        : allId.map((author) => (
-          <div key={byId[author].id}>
-            <ListItem alignItems="flex-start">
-              <ListItemAvatar>
-                <Avatar
-                  alt={byId[author].name}
-                  src="/static/images/avatar/1.jpg"
-                />
-              </ListItemAvatar>
-              <ListItemText
-                primary={byId[author].name}
-                secondary={(
-                  <>
-                    <Typography
-                      component="span"
-                      variant="body2"
-                      color="textPrimary"
-                    >
-                      {byId[author].bio}
-                    </Typography>
-                  </>
-                  )}
+      {allId.map((author) => (
+        <div key={byId[author].id}>
+          <ListItem alignItems="flex-start">
+            <ListItemAvatar>
+              <Avatar
+                alt={byId[author].name}
+                src="/static/images/avatar/1.jpg"
               />
-            </ListItem>
-            <Divider variant="inset" component="li" />
-          </div>
-        ))}
+            </ListItemAvatar>
+            <ListItemText
+              primary={byId[author].name}
+              secondary={(
+                <>
+                  <Typography
+                    component="span"
+                    variant="body2"
+                    color="textPrimary"
+                  >
+                    {byId[author].bio}
+                  </Typography>
+                </>
+              )}
+            />
+          </ListItem>
+          <Divider variant="inset" component="li" />
+        </div>
+      ))}
     </List>
   );
 };

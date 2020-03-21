@@ -13,8 +13,10 @@ import IconButton from '@material-ui/core/IconButton';
 
 import { Delete, Edit } from '@material-ui/icons';
 
+// ducks
 import { actionsPosts } from '../../store/ducks/posts';
 
+// components
 import Loading from '../../components/Loading';
 
 const PostData = () => {
@@ -31,6 +33,8 @@ const PostData = () => {
       setLoading(!loading);
     }, 3000);
   }, []);
+
+  const handleDeletePost = (id) => dispatch(actionsPosts.deletePost(id));
 
   return (
     <List style={{ padding: '24px 0' }}>
@@ -57,7 +61,7 @@ const PostData = () => {
                 <IconButton edge="end" aria-label="edit">
                   <Edit />
                 </IconButton>
-                <IconButton edge="end" aria-label="delete">
+                <IconButton onClick={() => handleDeletePost(byId[post].id)} edge="end" aria-label="delete">
                   <Delete />
                 </IconButton>
               </ListItemSecondaryAction>
