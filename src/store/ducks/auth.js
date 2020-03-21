@@ -1,5 +1,3 @@
-import { typesMe, actionsMe } from './me';
-
 const initialState = {
   token: '',
   user: {},
@@ -29,34 +27,45 @@ export const actionsAuth = {
   logout: () => ({ type: typesAuth.AUTH_LOGOUT }),
 };
 
-export const reducersAuth = (state = initialState, action) => {
+const reducerAuthToken = (state, action) => {
   switch (action.type) {
     case typesAuth.AUTH_LOGIN_SUCCESS:
-      return {
-        ...state,
-        token: action.payload.token,
-        user: action.payload.user,
-        status: {
-          type: typesAuth.AUTH_TOKEN_SUCCESS,
-          message: '',
-        },
-      };
-    case typesAuth.AUTH_TOKEN_ERROR:
-      return {
-        ...state,
-        status: {
-          type: typesAuth.AUTH_TOKEN_ERROR,
-          message: action.payload,
-        },
-      };
-    case typesMe.ME_UPDATE_SUCCESS:
-      return {
-        ...state,
-        user: action.payload,
-      };
+      return action.payload.token;
     case typesAuth.AUTH_LOGOUT_SUCCESS:
-      return initialState;
+      return '';
     default:
       return state;
   }
 };
+const reducerAuthUser = (state, action) => {
+  switch (action.type) {
+    case typesAuth.AUTH_LOGIN_SUCCESS:
+      return action.payload.user;
+    case typesAuth.AUTH_LOGOUT_SUCCESS:
+      return {};
+    default:
+      return state;
+  }
+};
+const reducerAuthStatus = (state, action) => {
+  switch (action.type) {
+    case typesAuth.AUTH_LOGIN_SUCCESS:
+      return {
+        type: typesAuth.AUTH_LOGIN_SUCCESS,
+        message: '',
+      };
+    case typesAuth.AUTH_LOGOUT_SUCCESS:
+      return {
+        type: '',
+        message: '',
+      };
+    default:
+      return state;
+  }
+};
+
+export const reducersAuth = (state = initialState, action) => ({
+  token: reducerAuthToken(state.token, action),
+  user: reducerAuthUser(state.user, action),
+  status: reducerAuthStatus(state.status, action),
+});
