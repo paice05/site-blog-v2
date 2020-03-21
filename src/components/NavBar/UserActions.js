@@ -27,7 +27,8 @@ const UserActions = () => {
   const anchorRef = useRef(null);
   const [open, setOpen] = useState(false);
 
-  const { user, token } = useSelector((state) => state.auth);
+  const { token } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.me);
 
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);

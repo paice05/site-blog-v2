@@ -32,7 +32,7 @@ const UserData = ({ handleSubmit, initialize }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.me);
 
   const [disabled, setDisabled] = useState(true);
 

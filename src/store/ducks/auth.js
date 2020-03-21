@@ -1,6 +1,5 @@
 const initialState = {
   token: '',
-  user: {},
   status: {
     type: '',
     message: '',
@@ -29,26 +28,22 @@ export const actionsAuth = {
 
 const reducerAuthToken = (state, action) => {
   switch (action.type) {
-    case typesAuth.AUTH_LOGIN_SUCCESS:
-      return action.payload.token;
+    case typesAuth.AUTH_TOKEN_SUCCESS:
+      return action.payload;
     case typesAuth.AUTH_LOGOUT_SUCCESS:
       return '';
     default:
       return state;
   }
 };
-const reducerAuthUser = (state, action) => {
-  switch (action.type) {
-    case typesAuth.AUTH_LOGIN_SUCCESS:
-      return action.payload.user;
-    case typesAuth.AUTH_LOGOUT_SUCCESS:
-      return {};
-    default:
-      return state;
-  }
-};
+
 const reducerAuthStatus = (state, action) => {
   switch (action.type) {
+    case typesAuth.AUTH_TOKEN_ERROR:
+      return {
+        type: typesAuth.AUTH_TOKEN_ERROR,
+        message: action.payload,
+      };
     case typesAuth.AUTH_LOGIN_SUCCESS:
       return {
         type: typesAuth.AUTH_LOGIN_SUCCESS,
@@ -66,6 +61,5 @@ const reducerAuthStatus = (state, action) => {
 
 export const reducersAuth = (state = initialState, action) => ({
   token: reducerAuthToken(state.token, action),
-  user: reducerAuthUser(state.user, action),
   status: reducerAuthStatus(state.status, action),
 });

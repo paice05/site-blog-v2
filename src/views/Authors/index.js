@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -14,16 +14,10 @@ import Typography from '@material-ui/core/Typography';
 // duck
 import { actionsAuthors } from '../../store/ducks/authors';
 
-import Loading from '../../components/Loading';
-
 const Authors = () => {
   const dispacth = useDispatch();
 
-  const [loading, setLoading] = useState(true);
-
   const { byId, allId } = useSelector((state) => state.authors);
-
-  console.log(allId);
 
   useEffect(() => {
     dispacth(actionsAuthors.listAuthors());

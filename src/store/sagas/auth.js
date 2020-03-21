@@ -11,7 +11,7 @@ function* auth({ payload: { username, password } }) {
       password: password.toLowerCase(),
     });
 
-    yield put({ type: typesAuth.AUTH_TOKEN_SUCCESS });
+    yield put({ type: typesAuth.AUTH_TOKEN_SUCCESS, payload: response.token });
     yield put({ type: typesAuth.AUTH_LOGIN, payload: response.token });
   } catch (error) {
     yield put({
@@ -35,10 +35,7 @@ function* login({ payload }) {
 
     yield put({
       type: typesAuth.AUTH_LOGIN_SUCCESS,
-      payload: {
-        user: response,
-        token: payload,
-      },
+      payload: response,
     });
   } catch (error) {
     yield put({ type: typesAuth.AUTH_LOGIN_ERROR });

@@ -8,7 +8,7 @@ import { typesAuthors } from '../ducks/authors';
 import { typesAuth } from '../ducks/auth';
 
 function* listAuthors() {
-  const meId = yield select((state) => state.auth.user.id);
+  const meId = yield select((state) => state.me.user.id);
   try {
     const data = yield call(list, '/authors');
     const response = yield data.filter((author) => author.id !== meId);

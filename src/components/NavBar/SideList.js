@@ -24,7 +24,8 @@ import {
 const SideList = ({ classes, side, toggleDrawer }) => {
   const history = useHistory();
 
-  const { token, user } = useSelector((state) => state.auth);
+  const { token } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.me);
 
   return (
     <div
